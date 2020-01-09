@@ -35,28 +35,32 @@ public class Digraph {
         for (int v = 0; v < V; v++) {
             adj[v] = new Bag<Integer>();
         }
-
         buildEdges();
     }
 
     public void buildEdges() {
         int counter1 = 0, counter2 = 0;
         for(int i = 0; i < hashmap.size(); i++) {
-            counter1++;
             System.out.println("Yttre loop = " + counter1);
             String string = hashmap.get(i);
             char[] letters = string.substring(1).toCharArray();
+            counter1++;
             counter2 = 0;
             for(int j = 0; j < hashmap.size(); j++) {
-                counter2++;
-                System.out.println("Inre loop = " + counter2);
-                char[] letters2 = hashmap.get(j).toCharArray();
-
-                if(i != j) {
-                    int amount = compare(letters, letters2);
-                    if(amount == 4) {
-                        addEdge(i, j);
+                if (i != j) {
+                    System.out.println("Inre loop = " + counter2);
+                    char[] letters2 = hashmap.get(j).toCharArray();
+//                  System.out.println(letters2);
+                    if (i != j) {
+                        int amount = compare(letters, letters2);
+                        if (amount == 4) {
+                            //markera en bokstav som "använd"
+                            addEdge(i, j);
+                            System.out.println("Amount = " + amount + ", bokstäver = " + letters[0] + letters[1] + letters[2] + letters[3] +
+                                    ", " + letters2[0] + letters2[1] + letters2[2] + letters2[3] + letters2[4]);
+                        }
                     }
+                    counter2++;
                 }
             }
         }
@@ -67,15 +71,15 @@ public class Digraph {
         for(int i = 0; i < one.length; i++) {
             for(int j = 0; j < two.length; j++) {
                 if(one[i] == two[j]) {
+//                    System.out.println("Match! Bokstav = " + one[i] + " = " + two[j]);
                     counter++;
-//					System.out.println(counter);
+//					System.out.print("Match! " + one[i] + ", " + two[j]);
+//					System.out.println(" ==== Räknare = " + counter);
                 }
             }
         }
         return counter;
     }
-
-
 
     /**
      * Initializes a digraph from the specified input stream.
