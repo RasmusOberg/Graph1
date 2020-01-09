@@ -23,7 +23,8 @@ public class Digraph {
      * @throws IllegalArgumentException if {@code V < 0}
      */
     public Digraph(ArrayList<String> list) {
-        if (list.size() < 0) throw new IllegalArgumentException("Number of vertices in a Digraph must be nonnegative");
+        if (list.size() < 0)
+            throw new IllegalArgumentException("Number of vertices in a Digraph must be nonnegative");
         this.V = list.size();
         this.E = 0;
         indegree = new int[V];
@@ -68,11 +69,15 @@ public class Digraph {
 
     private int compare(char[] one, char[] two) {
         int counter = 0;
+        boolean[] marked = new boolean[one.length];
         for(int i = 0; i < one.length; i++) {
             for(int j = 0; j < two.length; j++) {
                 if(one[i] == two[j]) {
-//                    System.out.println("Match! Bokstav = " + one[i] + " = " + two[j]);
-                    counter++;
+//                  System.out.println("Match! Bokstav = " + one[i] + " = " + two[j]);
+                    if(marked[i] == false) {
+                        counter++;
+                        marked[i] = true;
+                    }
 //					System.out.print("Match! " + one[i] + ", " + two[j]);
 //					System.out.println(" ==== Räknare = " + counter);
                 }
